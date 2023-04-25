@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svalente <svalente@student.42lisboa.com>   +#+  +:+       +#+         #
+#    By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 12:11:55 by svalente          #+#    #+#              #
-#    Updated: 2023/04/21 12:14:23 by svalente         ###   ########.fr        #
+#    Updated: 2023/04/25 14:45:39 by svalente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = pipex
 SRC = main
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 RM = rm -f
 
 #$(VERBOSE).SILENT:
