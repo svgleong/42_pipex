@@ -6,22 +6,22 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:57:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/04/25 14:44:43 by svalente         ###   ########.fr       */
+/*   Updated: 2023/04/25 16:04:55 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	error(char *str);
-void	child_process(int fd1, int *pipe_end, char *cmd, char **envp);
-void	parent_process(int fd2, int *pipe_end, char *cmd, char **envp);
-void	free_matrix(char **paths);
+void		error(char *str);
+void		child_process(int fd1, int *pipe_end, char *cmd, char **envp);
+void		parent_process(int fd2, int *pipe_end, char *cmd, char **envp);
+void		free_matrix(char **paths);
 const char	*find_path(char *cmd, char **envp);
 
 int	main(int ac, char **av, char **envp)
 {
-	int 	fd1;
-	int 	fd2;
+	int		fd1;
+	int		fd2;
 	pid_t	pid;
 	int		pipe_end[2];
 
@@ -51,42 +51,34 @@ void	error(char *str)
 
 void	child_process(int fd1, int *pipe_end, char *cmd, char **envp)
 {
-	char **cmds;
-	
 	dup2(fd1, STDIN_FILENO);
 	dup2(pipe_end[1], STDOUT_FILENO);
 	close(pipe_end[0]);
-	cmds = ft_split(cmd, ' ');
-	if (execve(find_path(cmd, envp), cmds, envp) == -1)
+	if (execve(find_path(cmd, envp), ft_split(cmd, ' '), envp) == -1)
 		exit(1);
 }
 
 void	parent_process(int fd2, int *pipe_end, char *cmd, char **envp)
 {
-	char **cmds;
-	
 	dup2(pipe_end[0], STDIN_FILENO);
 	dup2(fd2, STDOUT_FILENO);
 	close(pipe_end[1]);
-	cmds = ft_split(cmd, ' ');
-	if (execve(find_path(cmd, envp), cmds, envp) == -1)
+	if (execve(find_path(cmd, envp), ft_split(cmd, ' '), envp) == -1)
 		exit(1);
 }
-
 
 const char	*find_path(char *cmd, char **envp)
 {
 	int		i;
 	int		j;
-	char	*full_path;
-	char 	**paths;
+	char	**paths;
 	char	*cmd_path;
-	
+
 	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
+	while (envp[i++] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
-	full_path = envp[i] + 5;
-	paths = ft_split(full_path, ':');
+	paths = ft_split(envp[i] + 5, ':');
+	cmd = *ft_split(cmd, ' ');
 	cmd = ft_strjoin("/", cmd);
 	j = 0;
 	while (paths[j])
