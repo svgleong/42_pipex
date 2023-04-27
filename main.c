@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
+/*   By: svalente <svalente@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:57:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/04/25 16:04:55 by svalente         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:38:29 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	main(int ac, char **av, char **envp)
 		error("An error occuring while forking\n");
 	if (!pid)
 		child_process(fd1, pipe_end, av[2], envp);
-	else
-		parent_process(fd2, pipe_end, av[3], envp);
+	waitpid(pid, NULL, 0);
+	parent_process(fd2, pipe_end, av[3], envp);
 	return (0);
 }
 
@@ -55,7 +55,7 @@ void	child_process(int fd1, int *pipe_end, char *cmd, char **envp)
 	dup2(pipe_end[1], STDOUT_FILENO);
 	close(pipe_end[0]);
 	if (execve(find_path(cmd, envp), ft_split(cmd, ' '), envp) == -1)
-		exit(1);
+		error("Failed to execute\n");
 }
 
 void	parent_process(int fd2, int *pipe_end, char *cmd, char **envp)
@@ -64,7 +64,7 @@ void	parent_process(int fd2, int *pipe_end, char *cmd, char **envp)
 	dup2(fd2, STDOUT_FILENO);
 	close(pipe_end[1]);
 	if (execve(find_path(cmd, envp), ft_split(cmd, ' '), envp) == -1)
-		exit(1);
+		error("Failed to execute\n");
 }
 
 const char	*find_path(char *cmd, char **envp)
@@ -75,7 +75,7 @@ const char	*find_path(char *cmd, char **envp)
 	char	*cmd_path;
 
 	i = 0;
-	while (envp[i++] && ft_strncmp(envp[i], "PATH=", 5))
+	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
 	paths = ft_split(envp[i] + 5, ':');
 	cmd = *ft_split(cmd, ' ');
@@ -87,13 +87,12 @@ const char	*find_path(char *cmd, char **envp)
 		if (!cmd_path)
 			return (NULL);
 		if (access(cmd_path, F_OK) == 0)
-			break ;
+			return (cmd_path);
 		free(cmd_path);
 		j++;
 	}
-	free(cmd);
 	free_matrix(paths);
-	return (cmd_path);
+	return (cmd);
 }
 
 void	free_matrix(char **paths)
