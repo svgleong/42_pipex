@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:09:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/04/28 11:32:21 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:10:54 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 # include <sys/wait.h>
 
 void	error(char *str);
-void	child_process(int fd1, int *pipe_end, char *cmd, char **envp);
-void	parent_process(int fd2, int *pipe_end, char *cmd, char **envp);
+void	create_pipe(int	fd1, int fd2, char **av, char **envp);
+void	child_process1(int fd1, int fd2, int *pipe_end, char *cmd, char **envp);
+void	child_process2(int fd1, int fd2, int *pipe_end, char *cmd, char **envp);
 void	free_matrix(char **paths);
 char	*find_path(char *cmd, char **envp);
 
