@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:09:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/12 15:10:54 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/20 11:32:25 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+
+typedef	struct s_data
+{	
+	char			*cmd;
+	char			*path;
+	int				pipe_end[2];
+	struct s_data	*next;
+}	t_data;
+
 
 void	error(char *str);
 void	create_pipe(int	fd1, int fd2, char **av, char **envp);

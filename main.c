@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:57:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/12 15:34:30 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:53:19 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	main(int ac, char **av, char **envp)
 
 	if (ac != 5)
 		return (write(2, "Invalid number of arguments :/\n", 31));
-	if (ft_strncmp(av[2], "", 1) == 0 || ft_strncmp(av[3], "", 1) == 0)
-		return (write(2, "Empty commands\n", 15));
+	/* if (ft_strncmp(av[2], "", 2) == 0 || ft_strncmp(av[3], "", 2) == 0)
+		return (write(2, "Empty commands\n", 15)); */
 	fd1 = open(av[1], O_RDONLY);
 	fd2 = open(av[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd1 < 0 || fd2 < 0)
