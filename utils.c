@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
+/*   By: svalente <svalente@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:28:17 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/12 15:16:19 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/22 09:08:25 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	error(char *str)
 {
 	perror(str);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 void	child_process1(int fd1, int fd2, int *pipe_end, char *cmd, char **envp)

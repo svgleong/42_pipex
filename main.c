@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
+/*   By: svalente <svalente@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:57:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/20 10:53:19 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/22 09:34:06 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,11 @@ void	create_pipe(int fd1, int fd2, char **av, char **envp)
 		error("An error occuring while forking\n"); //perror or error?
 	if (pid_1 == 0)
 		child_process1(fd1, fd2 , pipe_end, av[2], envp);
-	if (pid_1 > 0)
-	{
-		//waitpid(pid_1, NULL, 0);
-		pid_2 = fork();
-		if (pid_2 == -1)
-			error("An error occuring while forking\n");
-		if (pid_2 == 0)
-			child_process2(fd1, fd2, pipe_end, av[3], envp);
-	}
+	pid_2 = fork();
+	if (pid_2 == -1)
+		error("An error occuring while forking\n");
+	if (pid_2 == 0)
+		child_process2(fd1, fd2, pipe_end, av[3], envp);
 	close(pipe_end[0]);
 	close(pipe_end[1]);
 	waitpid(pid_2, NULL, 0);
