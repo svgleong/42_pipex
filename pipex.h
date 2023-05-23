@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
+/*   By: svalente <svalente@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:09:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/20 11:32:25 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:20:18 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-typedef	struct s_data
+typedef	struct s_cmd
 {	
 	char			*cmd;
 	char			*path;
 	int				pipe_end[2];
-	struct s_data	*next;
-}	t_data;
+	struct s_cmd	*next;
+}	t_cmd;
 
 
 void	error(char *str);
