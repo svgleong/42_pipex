@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svalente <svalente@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:09:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/23 21:20:18 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:58:55 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-typedef	struct s_cmd
+typedef struct s_cmd
 {	
 	char			*cmd;
 	char			*path;
@@ -31,12 +31,21 @@ typedef	struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+typedef struct s_fds
+{
+	int	fd1;
+	int	fd2;
+}	t_fds;
 
+t_fds	*fds(void);
 void	error(char *str);
-void	create_pipe(int	fd1, int fd2, char **av, char **envp);
-void	child_process1(int fd1, int fd2, int *pipe_end, char *cmd, char **envp);
-void	child_process2(int fd1, int fd2, int *pipe_end, char *cmd, char **envp);
+void	create_pipe(t_fds *fds, char **av, char **envp);
+void	child_process1(t_fds *fds, int *pipe_end, char *cmd, char **envp);
+void	child_process2(t_fds *fds, int *pipe_end, char *cmd, char **envp);
 void	free_matrix(char **paths);
 char	*find_path(char *cmd, char **envp);
+void	close_fds(int fd1, int fd2);
+void	execution_error(char *path, char **cmds, char *msg);
+int		is_string_empty(const char *str);
 
 #endif

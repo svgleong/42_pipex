@@ -6,7 +6,7 @@
 #    By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 12:11:55 by svalente          #+#    #+#              #
-#    Updated: 2023/05/12 14:44:37 by svalente         ###   ########.fr        #
+#    Updated: 2023/05/24 13:00:39 by svalente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = pipex
 
 SRC = 	main\
 		utils\
+		processes
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
