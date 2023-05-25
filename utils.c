@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:28:17 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/24 17:01:18 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:59:47 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 
 void	error(char *str)
 {
-	perror(str);
+	(void) str;
+	//perror(strerror(errno));
+	perror("mensagem erro");
 	exit(EXIT_FAILURE);
 }
 
@@ -45,9 +47,9 @@ void	execution_error(char *path, char **cmds, char *msg)
 {
 	free(path);
 	free_matrix(cmds);
-	close(0);
-	close(1);
 	error(msg);
+	//write(2);
+	//exit;
 }
 
 int	is_string_empty(const char *str)

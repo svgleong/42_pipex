@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:57:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/25 14:53:56 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:08:39 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int ac, char **av, char **envp)
 		fdd = open(av[1], O_RDONLY);
 		printf("fdd number: %d\n", fdd);
 	} */
+	return (0);
 }
 
 void	create_pipe(t_fds *fds, char **av, char **envp)
@@ -51,16 +52,21 @@ void	create_pipe(t_fds *fds, char **av, char **envp)
 	pid_1 = fork();
 	if (pid_1 == -1)
 		error("An error occuring while forking"); 
-	if (pid_1 == 0) {
-		
-	} // && fds->fd1 >= 0)
+	if (pid_1 == 0) 
+	{
 		child_process1(fds, pipe_end, av[2], envp);
+		return ;
+	} // && fds->fd1 >= 0)
+		
 	//waitpid(pid_1, NULL, 0); //with waitpid /dev/random doesn't work
 	pid_2 = fork();
 	if (pid_2 == -1)
 		error("An error occuring while forking\n");
-	if (pid_2 == 0) // && fds->fd2 >= 0)
+	if (pid_2 == 0)
+	{
 		child_process2(fds, pipe_end, av[3], envp);
+		return ;
+	}
 	close_fds(pipe_end[0], pipe_end[1]);
 	waitpid(pid_2, NULL, 0);
 	close_fds(fds->fd1, fds->fd2);
