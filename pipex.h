@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:09:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/25 15:29:02 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:58:49 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_fds
 {
 	int	fd1;
 	int	fd2;
+	char	**av;
 }	t_fds;
 
 t_fds	*fds(void);

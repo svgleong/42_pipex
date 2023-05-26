@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:57:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/25 16:08:39 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:12:12 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	main(int ac, char **av, char **envp)
 	//int		fdd;
 	//int		fd2;
 	t_fds	fds;
+
+	fds.av = av;
 	
 	if (ac != 5)
 		return (write(2, "Invalid number of arguments :/\n", 31));
@@ -25,10 +27,10 @@ int	main(int ac, char **av, char **envp)
 		perror("Empty command or commands");
 		return 0;
 	}
-	fds.fd1 = open(av[1], O_RDONLY);
+	/* fds.fd1 = open(av[1], O_RDONLY);
 	fds.fd2 = open(av[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fds.fd1 < 0 || fds.fd2 < 0)
-		perror("An error ocurred opening the files"); //with p the xcvbn cat ls out works but the exit code is incorrect...
+		ft_putstr_fd("An error ocurred opening the files\n", 2); //with p the xcvbn cat ls out works but the exit code is incorrect... */
 	create_pipe(&fds, av, envp);
 	//close(fds.fd1);
 	//close(fds.fd2);
@@ -46,22 +48,21 @@ void	create_pipe(t_fds *fds, char **av, char **envp)
 	pid_t	pid_1;
 	pid_t	pid_2;
 
+	pid_1 = 0;
 	pid_2 = 0;
 	if (pipe(pipe_end) == -1)
 		perror("An error occured while creating the pipe"); //perror or error?
 	pid_1 = fork();
 	if (pid_1 == -1)
-		error("An error occuring while forking"); 
-	if (pid_1 == 0) 
+		error("An error occured while forking"); 
+	if (pid_1 == 0)
 	{
 		child_process1(fds, pipe_end, av[2], envp);
 		return ;
-	} // && fds->fd1 >= 0)
-		
-	//waitpid(pid_1, NULL, 0); //with waitpid /dev/random doesn't work
+	} 
 	pid_2 = fork();
 	if (pid_2 == -1)
-		error("An error occuring while forking\n");
+		error("An error occured while forking\n");
 	if (pid_2 == 0)
 	{
 		child_process2(fds, pipe_end, av[3], envp);
@@ -69,7 +70,6 @@ void	create_pipe(t_fds *fds, char **av, char **envp)
 	}
 	close_fds(pipe_end[0], pipe_end[1]);
 	waitpid(pid_2, NULL, 0);
-	close_fds(fds->fd1, fds->fd2);
 }
 
 /* int main(int ac, char **av)

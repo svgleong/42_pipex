@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:28:17 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/25 15:59:47 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:05:32 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 void	error(char *str)
 {
 	(void) str;
-	//perror(strerror(errno));
-	perror("mensagem erro");
+	//perror(strerror(errno))
+	//ft_putstr_fd(str, 2);
+	perror(str);
 	exit(EXIT_FAILURE);
 }
 
@@ -39,12 +40,16 @@ void	free_matrix(char **paths)
 
 void	close_fds(int fd1, int fd2)
 {
-	close(fd1);
+	if (fd1 >= 0)
+		close(fd1);
+	if (fd2 )
 	close(fd2);
 }
 
 void	execution_error(char *path, char **cmds, char *msg)
 {
+	(void)path;
+	(void)cmds;
 	free(path);
 	free_matrix(cmds);
 	error(msg);
