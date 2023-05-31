@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
+/*   By: svalente <svalente@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:57:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/26 15:15:48 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:08:30 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int ac, char **av, char **envp)
 		return (write(2, "Invalid number of arguments :/\n", 31));
 	if (is_string_empty(av[2]) || is_string_empty(av[3]))
 	{
-		perror("Empty command or commands");
-		return (0);
+		ft_putstr_fd("Command \"\" not found\n", 2);
+		return (1);
 	}
 	create_pipe(&fds, av, envp);
 	return (0);
