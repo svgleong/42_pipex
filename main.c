@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svalente <svalente@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:57:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/27 12:08:30 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:00:23 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,3 @@ void	create_pipe(t_fds *fds, char **av, char **envp)
 	close_fds(pipe_end[0], pipe_end[1]);
 	waitpid(pid_2, NULL, 0);
 }
-
-/* int main(int ac, char **av)
-{
-	(void)ac;
-	char **cmds = ft_split(av[1], ' ');
-	char *cmd = *ft_split(av[1], ' ');
-	int i = 0;
-
-	while (cmds[i])
-	{
-		printf("cmd[%d]: %s\n", i, cmds[i]);
-		i++;
-	}
-	printf("cmd alone: %s\n", cmd);
-	free(cmd);
-	free_matrix(cmds);
-} */
