@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:57:31 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/31 12:01:16 by svalente         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:37:26 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	child_process1(t_fds *fds, int *pipe_end, char *cmd, char **envp)
 		return ;
 	}
 	close(pipe_end[0]);
-	dup2(fds->fd1, STDIN_FILENO);
-	dup2(pipe_end[1], STDOUT_FILENO);
+	if (dup2(fds->fd1, STDIN_FILENO) == -1)
+		error("Error redirecting in Child Process 1");
+	if (dup2(pipe_end[1], STDOUT_FILENO) == -1)
+		error("Error redirecting in Child Process 1");
 	close(pipe_end[1]);
 	cmds = ft_split(cmd, ' ');
 	path = find_path(cmds[0], envp);
@@ -46,8 +48,10 @@ void	child_process2(t_fds *fds, int *pipe_end, char *cmd, char **envp)
 		return ;
 	}
 	close(pipe_end[1]);
-	dup2(pipe_end[0], STDIN_FILENO);
-	dup2(fds->fd2, STDOUT_FILENO);
+	if (dup2(pipe_end[0], STDIN_FILENO) == -1)
+		error("Error redirecting in Child Process 2");
+	if (dup2(fds->fd2, STDOUT_FILENO) == -1)
+		error("Error redirecting in Child Process 2");
 	close(pipe_end[0]);
 	cmds = ft_split(cmd, ' ');
 	path = find_path(cmds[0], envp);

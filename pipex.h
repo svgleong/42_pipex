@@ -6,14 +6,13 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:09:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/31 12:00:26 by svalente         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:08:13 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "./ft_printf/ft_printf.h"
 # include "./Libft/libft.h"
 # include <unistd.h>
 # include <sys/types.h>
@@ -24,14 +23,6 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <string.h>
-
-typedef struct s_cmd
-{	
-	char			*cmd;
-	char			*path;
-	int				pipe_end[2];
-	struct s_cmd	*next;
-}	t_cmd;
 
 typedef struct s_fds
 {

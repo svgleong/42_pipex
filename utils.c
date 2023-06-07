@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:28:17 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/31 12:00:00 by svalente         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:33:35 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void	close_fds(int fd1, int fd2)
 
 void	execution_error(char *path, char **cmds, char *msg, t_fds *fds)
 {
-	(void)path;
-	(void)cmds;
-	(void)fds;
 	free(path);
 	free_matrix(cmds);
 	if (ft_strncmp(msg, "command 1 not found", 19) == 0)
