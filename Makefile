@@ -6,7 +6,7 @@
 #    By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 12:11:55 by svalente          #+#    #+#              #
-#    Updated: 2023/06/07 12:39:46 by svalente         ###   ########.fr        #
+#    Updated: 2023/06/07 14:19:42 by svalente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC = 	main\
 		processes
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 RM = rm -f
 
 $(VERBOSE).SILENT:

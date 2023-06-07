@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:09:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/05/31 12:08:13 by svalente         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:05:30 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@
 
 typedef struct s_fds
 {
-	int	fd1;
-	int	fd2;
+	int		fd1;
+	int		fd2;
+	int		pipe_end[2];
 	char	**av;
+	char	**cmds;
+	char	*path;
 }	t_fds;
 
 t_fds	*fds(void);
@@ -39,7 +42,9 @@ void	child_process2(t_fds *fds, int *pipe_end, char *cmd, char **envp);
 void	free_matrix(char **paths);
 char	*find_path(char *cmd, char **envp);
 void	close_fds(int fd1, int fd2);
-void	execution_error(char *path, char **cmds, char *msg, t_fds *fds);
+void	execution_error(char *msg, t_fds *fds);
 int		is_string_empty(const char *str);
+void	error_handler(t_fds *fds, char *err_msg, int perr);
+char	*check_access(char **paths, char *cmd);
 
 #endif
