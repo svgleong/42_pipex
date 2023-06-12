@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:57:31 by svalente          #+#    #+#             */
-/*   Updated: 2023/06/12 14:35:31 by svalente         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:51:08 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	child_process1(t_fds *fds, int *pipe_end, char *cmd, char **envp)
 {
-	fds->fd1 = open(fds->av[1], O_RDONLY);
+	/* fds->fd1 = open(fds->av[1], O_RDONLY);
 	if (fds->fd1 < 0)
 	{
 		error_handler(fds, "An error ocurred opening the infile", 1);
 		return ;
-	}
+	} */
 	close(pipe_end[0]);
 	fds->std[0] = dup2(fds->fd1, STDIN_FILENO);
 	if (fds->std[0] == -1)
@@ -41,12 +41,12 @@ void	child_process1(t_fds *fds, int *pipe_end, char *cmd, char **envp)
 
 void	child_process2(t_fds *fds, int *pipe_end, char *cmd, char **envp)
 {
-	fds->fd2 = open(fds->av[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	/* fds->fd2 = open(fds->av[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fds->fd2 < 0)
 	{
 		error_handler(fds, "An error ocurred opening the outfile", 1);
 		return ;
-	}
+	} */
 	close(pipe_end[1]);
 	fds->std[0] = dup2(pipe_end[0], STDIN_FILENO);
 	if (fds->std[0] == -1)
@@ -74,7 +74,7 @@ char	*find_path(char *cmd, char **envp)
 
 	i = 0;
 	if (access(cmd, F_OK) == 0)
-		return (ft_strdup(cmd));
+		return (cmd);
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
 	paths = ft_split(envp[i] + 5, ':');
