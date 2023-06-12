@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:57:31 by svalente          #+#    #+#             */
-/*   Updated: 2023/06/07 15:07:08 by svalente         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:35:31 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ void	child_process1(t_fds *fds, int *pipe_end, char *cmd, char **envp)
 	fds->fd1 = open(fds->av[1], O_RDONLY);
 	if (fds->fd1 < 0)
 	{
-		perror("An error ocurred opening the infile");
+		error_handler(fds, "An error ocurred opening the infile", 1);
 		return ;
 	}
 	close(pipe_end[0]);
-	if (dup2(fds->fd1, STDIN_FILENO) == -1)
+	fds->std[0] = dup2(fds->fd1, STDIN_FILENO);
+	if (fds->std[0] == -1)
 		error_handler(fds, "Error redirecting in Child Process 1", 1);
-	if (dup2(pipe_end[1], STDOUT_FILENO) == -1)
+	fds->std[1] = dup2(pipe_end[1], STDOUT_FILENO);
+	if (fds->std[1] == -1)
 		error_handler(fds, "Error redirecting in Child Process 1", 1);
 	close(pipe_end[1]);
 	fds->cmds = ft_split(cmd, ' ');
@@ -42,13 +44,15 @@ void	child_process2(t_fds *fds, int *pipe_end, char *cmd, char **envp)
 	fds->fd2 = open(fds->av[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fds->fd2 < 0)
 	{
-		perror("An error ocurred opening the outfile");
+		error_handler(fds, "An error ocurred opening the outfile", 1);
 		return ;
 	}
 	close(pipe_end[1]);
-	if (dup2(pipe_end[0], STDIN_FILENO) == -1)
+	fds->std[0] = dup2(pipe_end[0], STDIN_FILENO);
+	if (fds->std[0] == -1)
 		error_handler(fds, "Error redirecting in Child Process 2", 1);
-	if (dup2(fds->fd2, STDOUT_FILENO) == -1)
+	fds->std[1] = dup2(fds->fd2, STDOUT_FILENO);
+	if (fds->std[1] == -1)
 		error_handler(fds, "Error redirecting in Child Process 2", 1);
 	close(pipe_end[0]);
 	fds->cmds = ft_split(cmd, ' ');

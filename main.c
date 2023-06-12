@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:57:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/06/07 14:30:51 by svalente         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:38:48 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 5)
 		return (write(2, "Invalid number of arguments :/\n", 31));
 	init_struct(&fds, av);
-	if (is_string_empty(av[2]) || is_string_empty(av[3]))
+	if (is_string_empty(av[2]) && is_string_empty(av[3]))
 	{
 		ft_putstr_fd("Command \"\" not found\n", 2);
 		return (1);
@@ -64,5 +64,6 @@ void	create_pipe(t_fds *fds, char **av, char **envp)
 		return ;
 	}
 	close_fds(fds->pipe_end[0], fds->pipe_end[1]);
+	waitpid(pid_1, NULL, 0);
 	waitpid(pid_2, NULL, 0);
 }

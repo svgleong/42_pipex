@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:09:14 by svalente          #+#    #+#             */
-/*   Updated: 2023/06/07 15:05:30 by svalente         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:27:36 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_fds
 	int		fd1;
 	int		fd2;
 	int		pipe_end[2];
+	int		std[2];
 	char	**av;
 	char	**cmds;
 	char	*path;

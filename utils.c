@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:28:17 by svalente          #+#    #+#             */
-/*   Updated: 2023/06/07 14:53:04 by svalente         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:35:58 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ void	error_handler(t_fds *fds, char *err_msg, int perr)
 		close(fds->fd1);
 	if (fds->fd2 != -1)
 		close(fds->fd2);
+	if (fds->std[0] != -1)
+		close(fds->std[0]);
+	if (fds->std[1] != -1)
+		close(fds->std[1]);
 	if (fds->cmds)
 		free_matrix(fds->cmds);
 	if (fds->path)
