@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:28:17 by svalente          #+#    #+#             */
-/*   Updated: 2023/06/12 14:35:58 by svalente         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:47:15 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,15 @@ void	error_handler(t_fds *fds, char *err_msg, int perr)
 		close(fds->std[0]);
 	if (fds->std[1] != -1)
 		close(fds->std[1]);
+	if (fds->pipe_end[0] != -1)
+		close(fds->pipe_end[0]);
+	if (fds->pipe_end[1] != -1)
+		close(fds->pipe_end[1]);
 	if (fds->cmds)
 		free_matrix(fds->cmds);
 	if (fds->path)
 		free(fds->path);
-	if (perr)
+	if (perr == 1)
 		perror(err_msg);
 	else
 		ft_putstr_fd(err_msg, 2);
@@ -65,10 +69,11 @@ void	execution_error(char *msg, t_fds *fds)
 		close(fds->fd1);
 	if (ft_strncmp(msg, "command 2 not found", 19) == 0)
 		close(fds->fd2);
-	error_handler(fds, msg, 0);
+	printf("ola/n");
+	error_handler(fds, msg, 2);
 }
 
-int	is_string_empty(const char *str)
+/* int	is_string_empty(const char *str)
 {
 	int	i;
 
@@ -81,3 +86,4 @@ int	is_string_empty(const char *str)
 	}
 	return (1);
 }
+ */

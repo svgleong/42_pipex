@@ -6,7 +6,7 @@
 /*   By: svalente <svalente@student.42lisboa.com >  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 18:49:06 by svalente          #+#    #+#             */
-/*   Updated: 2022/11/17 11:36:27 by svalente         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:55:40 by svalente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s || !*s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
